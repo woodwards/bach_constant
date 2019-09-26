@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+!Ot(b)_samples.rds
+!Wp(b)_samples.rds
+*.rds
+log_*.txt
