@@ -65,7 +65,7 @@ source('prep_output8.r')
 
 # loop through runlist
 rows <- 1:nruns # to run all sites
-rows <- c(12) # to run a subset of sites, useful for testing
+# rows <- c(12) # to run a subset of sites, useful for testing
 i <- rows[[1]] # set i useful for line by line testing
 for (i in rows) {
   
@@ -395,5 +395,5 @@ save_plot(file_name, temp, base_height=9, base_width=12)
 # use this if necessary to kill processes that didn't terminate
 # kill_all_Rscript_s()
 
-source("box_plots13.r") 
+# source("box_plots13.r") # currently not working due to changes in ggplot
 source("trace_plots12.r") 

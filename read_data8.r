@@ -37,6 +37,7 @@ files <- tibble(fname=list.files(path=dir_path, pattern='\\_data.dat$'), path=di
 for (i in 1:nrow(files)){
   file_name <- paste(files$path[i], files$fname[i], sep='')
   temp <- read_tsv(file_name, 
+                   guess_max = 5000,
                    na="NaN", skip=0, progress=FALSE, n_max=Inf, col_types=cols(),
                    col_names=c('date', 'flow', 
                                'Ca', 'Mg', 'K', 'Na', 'Zn', 'HCO3', 'SO4', 'Cl',
