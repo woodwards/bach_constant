@@ -2,7 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
+log_*.txt
+*.rds
+# these two rds files needed
 !Ot(b)_samples.rds
 !Wp(b)_samples.rds
-*.rds
-log_*.txt

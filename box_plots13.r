@@ -101,7 +101,7 @@ bplot <- function(sampledata, varname, ylabel, ybreaks, yref=0, ytrans="identity
                '','Pu','',
                '','Wt','',
                '','Pi','')
-  ggplot(data=sampledata, mapping=aes_string(x='setseqf', y=varname)) +
+  ggplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname)) +
     labs(title='', y=ylabel, x='') +
     theme_cowplot(font_size=10) +
     theme(axis.ticks.x=element_blank(), 
@@ -110,13 +110,13 @@ bplot <- function(sampledata, varname, ylabel, ybreaks, yref=0, ytrans="identity
     panel_border(colour='black') +  
     geom_hline(yintercept=yref, linetype=2, colour='black') +
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
-    # stat_boxplot(data=sampledata, mapping=aes_string(x='setseqf', y=varname), 
+    # stat_boxplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), 
     #             geom="errorbar", width=0.35) +
     stat_summary(mapping=aes(group=setseqf), fun.data=custombox1, geom='errorbar') +
     # geom_boxplot(outlier.size=0.5, notch=FALSE, outlier.shape=NA) +
     # https://stackoverflow.com/questions/17479793/changing-bar-width-when-using-stat-summary-with-ggplot
     stat_summary(mapping=aes(group=setseqf), fun.data=custombox2, geom='boxplot') +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
     scale_y_continuous(breaks=ybreaks, limits=c(min(ybreaks), max(ybreaks)), expand=c(0, 0), trans=ytrans) +
     scale_x_discrete(labels=xlabels) 
 }
@@ -165,7 +165,7 @@ bplot1 <- function(sampledata, varname, ylabel, ybreaks, yref=0, box_fill="white
     sampledata2$median[sampledata2$setseq %% 3 != 2 ] <- NA_real_ # discard dupes
     sampledata3 <- filter(sampledata2, !is.na(median))
   }
-  ggplot(data=sampledata2, mapping=aes_string(x='setseqf', y='varname')) +
+  ggplot(data=sampledata2, mapping=aes_string(group='setseqf', x='setseqf', y='varname')) +
     labs(title='', y=ylabel, x='') +
     theme_cowplot(font_size=10) +
     theme(axis.ticks.x=element_blank(), 
@@ -176,12 +176,12 @@ bplot1 <- function(sampledata, varname, ylabel, ybreaks, yref=0, box_fill="white
              alpha=median_alpha, fill=median_fill, colour=median_colour) +
     geom_hline(yintercept=yref, linetype=2, colour='black') +
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
-    # stat_boxplot(data=sampledata, mapping=aes_string(x='setseqf', y=varname), 
+    # stat_boxplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), 
     #             geom="errorbar", width=0.35) +
     stat_summary(fun.data=custombox1, geom='errorbar') +
     # geom_boxplot(outlier.size=0.5, notch=FALSE, outlier.shape=NA) +
     stat_summary(fun.data=custombox2, geom='boxplot', fill=box_fill) +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
     scale_y_continuous(breaks=ybreaks, limits=c(min(ybreaks), max(ybreaks)), expand=c(0, 0), trans=ytrans) +
     # geom_segment(mapping=aes(x=setseq-0.5, xend=setseq+0.5, y=median, yend=median), linetype=2, size=1, colour=median_colour) +
     scale_x_discrete(labels=xlabels, expand=c(0, 0)) 
@@ -378,14 +378,14 @@ bplot2 <- function(sampledata, varname, ylabel, ybreaks, yref1, yref2){
     geom_path(aes(x=1:24, y=yref1), linetype=2, colour='black') +
     geom_path(aes(x=1:24, y=yref2), linetype=2, colour='black') +
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
-    # stat_boxplot(data=sampledata, mapping=aes_string(x='setseqf', y=varname), 
+    # stat_boxplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), 
     #             geom="errorbar", width=0.35) +
-    stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
                  fun.data=custombox1, geom='errorbar') +
     # geom_boxplot(outlier.size=0.5, notch=FALSE, outlier.shape=NA) +
-    stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
                  fun.data=custombox2, geom='boxplot') +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
     scale_y_continuous(breaks=ybreaks, limits=c(min(ybreaks), max(ybreaks)), expand=c(0, 0)) +
     scale_x_discrete(labels=xlabels) 
 }
@@ -442,7 +442,7 @@ barplot <- function(sampledata, varname, ylabel, ybreaks, yref1=NA, yref2=NA, yt
     geom_hline(yintercept=yref1, linetype=2, colour='black') +
     geom_hline(yintercept=yref2, linetype=2, colour='black') +
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
-    #	  stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
+    #	  stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
     scale_y_continuous(breaks=ybreaks, expand=c(0, 0), trans=ytrans) +
     coord_cartesian(ylim=c(min(ybreaks), max(ybreaks))) + # allows bars to go off the page
     scale_x_discrete(labels=xlabels) 
@@ -489,15 +489,15 @@ bplot3 <- function(sampledata, varname, ylabel, ybreaks, yref, ytrans="identity"
     panel_border(colour='black') +  
     geom_hline(yintercept=yref, linetype=2, colour='black') +
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
-    # stat_boxplot(data=sampledata, mapping=aes_string(x='setseqf', y=varname), 
+    # stat_boxplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), 
     #             geom="errorbar", width=0.35) +
-    stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
                  fun.data=custombox1, geom='errorbar') +
     # geom_boxplot(outlier.size=0.5, notch=FALSE, outlier.shape=NA) +
-    stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
                  fun.data=custombox2, geom='boxplot') +
     geom_point(data=sampledata, mapping=aes_string(x='setseqf', y=varname), size=1) +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
     #              fun.y=mean, geom='point', pch=21, size=1, fill="white", colour="black") +
     scale_y_continuous(breaks=ybreaks, limits=c(min(ybreaks), max(ybreaks)), expand=c(0, 0), trans=ytrans) +
     scale_x_discrete(labels=xlabels) 
@@ -522,16 +522,16 @@ bplot4 <- function(sampledata, varname, ylabel, ybreaks, yref, ytrans="identity"
     panel_border(colour='black') +  
     geom_hline(yintercept=yref, linetype=2, colour='black') +
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
-    # stat_boxplot(data=sampledata, mapping=aes_string(x='setseqf', y=varname), 
+    # stat_boxplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), 
     #             geom="errorbar", width=0.35) +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
     #              fun.data=custombox, geom='errorbar', width=0.35) +
     # geom_boxplot(outlier.size=0.5, notch=FALSE, outlier.shape=NA) +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
     #              fun.data=custombox, geom='boxplot') +
     geom_point(data=sampledata, mapping=aes_string(x='setseqf', y=varname), size=1) +
     geom_point(data=sampledata, mapping=aes_string(x='setseqf', y=varname), size=2, pch=1, stat="summary", fun.y="mean") +
-    # stat_summary(data=sampledata, mapping=aes_string(x='setseqf', y=varname),
+    # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname),
     #              fun.y=mean, geom='point', pch=21, size=1, fill="white", colour="black") +
     scale_y_continuous(breaks=ybreaks, limits=c(min(ybreaks), max(ybreaks)), expand=c(0, 0), trans=ytrans) +
     scale_x_discrete(labels=xlabels) 
