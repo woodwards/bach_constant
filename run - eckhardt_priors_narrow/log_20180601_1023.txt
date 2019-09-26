@@ -1,0 +1,8 @@
+R version 3.5.0 (2018-04-23)
+Stan version 2.17.0
+24 lines in runlist.dat
+12 pokai_data.dat optionsb.dat Fri 01 Jun 10:23:48 2018
+iterations = 4200
+max(Rhat)  = 1.08699993116639 
+elapsed(h) = 0.1937425
+Fri 01 Jun 10:36:48 2018
