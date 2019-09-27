@@ -395,5 +395,5 @@ save_plot(file_name, temp, base_height=9, base_width=12)
 # use this if necessary to kill processes that didn't terminate
 # kill_all_Rscript_s()
 
-# source("box_plots13.r") # currently not working due to changes in ggplot
+source("box_plots13.r") 
 source("trace_plots12.r") 

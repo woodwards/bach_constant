@@ -68,7 +68,7 @@ custombox1 <- function(y) { # for error bar
              ymax=quantile(y,0.975),
              y=y,
              width=0.5,
-             row.names = NULL)
+             row.names = NULL)[1, ]
 }
 custombox2 <- function(y) { # for box
   data.frame(ymin=quantile(y,0.025),
@@ -78,7 +78,7 @@ custombox2 <- function(y) { # for box
              ymax=quantile(y,0.975),
              y=y, 
              width=0.7,
-             row.names = NULL)
+             row.names = NULL)[1, ]
 }
 
 # test inputs
@@ -101,7 +101,7 @@ bplot <- function(sampledata, varname, ylabel, ybreaks, yref=0, ytrans="identity
                '','Pu','',
                '','Wt','',
                '','Pi','')
-  ggplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname)) +
+  ggplot(data=sampledata) +
     labs(title='', y=ylabel, x='') +
     theme_cowplot(font_size=10) +
     theme(axis.ticks.x=element_blank(), 
@@ -112,10 +112,12 @@ bplot <- function(sampledata, varname, ylabel, ybreaks, yref=0, ytrans="identity
     geom_vline(xintercept=c(3.5,6.5,9.5,12.5,15.5,18.5,21.5), colour='grey') +
     # stat_boxplot(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), 
     #             geom="errorbar", width=0.35) +
-    stat_summary(mapping=aes(group=setseqf), fun.data=custombox1, geom='errorbar') +
+    stat_summary(mapping=aes_string(group='setseqf', x='setseqf', y=varname),
+                 fun.data=custombox1, geom='errorbar') +
     # geom_boxplot(outlier.size=0.5, notch=FALSE, outlier.shape=NA) +
     # https://stackoverflow.com/questions/17479793/changing-bar-width-when-using-stat-summary-with-ggplot
-    stat_summary(mapping=aes(group=setseqf), fun.data=custombox2, geom='boxplot') +
+    stat_summary(mapping=aes_string(group='setseqf', x='setseqf', y=varname),
+                 fun.data=custombox2, geom='boxplot') +
     # stat_summary(data=sampledata, mapping=aes_string(group='setseqf', x='setseqf', y=varname), fun.y=median, geom='point', pch=3, size=1) +
     scale_y_continuous(breaks=ybreaks, limits=c(min(ybreaks), max(ybreaks)), expand=c(0, 0), trans=ytrans) +
     scale_x_discrete(labels=xlabels) 
